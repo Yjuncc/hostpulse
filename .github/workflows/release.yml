@@ -1,0 +1,65 @@
+name: HostPulse Release
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and check packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - name: Build and validate packages
+        run: |
+          python -m pip install build twine
+          python -m build
+          python -m twine check dist/*
+
+      - name: Save packages
+        uses: actions/upload-artifact@v5
+        with:
+          name: python-packages
+          path: dist/
+          if-no-files-found: error
+
+  publish:
+    name: Publish to PyPI
+    if: >-
+      github.event_name == 'release' &&
+      github.event.release.prerelease == false &&
+      startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/hostpulse
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Download packages
+        uses: actions/download-artifact@v5
+        with:
+          name: python-packages
+          path: dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
