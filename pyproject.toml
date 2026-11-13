@@ -1,0 +1,22 @@
+
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hostpulse"
+version = "0.1.0"
+license = "MIT"
+license-files = ["LICENSE"]
+description = "A command-line tool for checking local system status"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "psutil==7.2.2",
+]
+
+[project.scripts]
+hostpulse = "hostpulse:main"
+
+[tool.setuptools]
+py-modules = ["hostpulse"]

@@ -1,34 +1,59 @@
 # HostPulse
 
-使用 Python 開發的命令行系統狀態檢查工具。
+[English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md)
 
-目前已在 macOS 上完成開發與運行測試，Linux 版本尚未測試。
+HostPulse is a Python command-line tool for checking the status of your local system.
 
-## 功能
+It displays a snapshot of system information each time it runs. Continuous monitoring is not supported in this version.
 
-- 查看操作系統、處理器架構和邏輯處理器數量
-- 查看主機名稱
-- 查看 CPU 使用率
-- 查看內存總量和使用率
-- 查看硬盤容量和使用率
-- 查看系統運行時間
+## Features
 
-## 運行環境
+- Display the operating system, CPU architecture, and logical CPU count
+- Display the hostname
+- Display CPU usage
+- Display total memory and memory usage
+- Display disk capacity and disk usage
+- Display system uptime
 
+## Tested Environment
+
+- macOS
 - Python 3.14
 - psutil 7.2.2
 
-## 使用方法
+Linux and Windows compatibility have not yet been tested.
 
-在項目目錄中建立並啟用 Python 虛擬環境：
+## Local Development and Usage
 
-1. 建立虛擬環境：`python3.14 -m venv .venv`
-2. 啟用虛擬環境：`source .venv/bin/activate`
-3. 安裝依賴：`python -m pip install -r requirements.txt`
-4. 運行程序：`python hostpulse.py`
+Open a terminal and navigate to the HostPulse project directory.
 
-以上命令適用於 macOS。已建立虛擬環境並安裝依賴的使用者，不需要重複執行前三步。
+1. Create a virtual environment: `python3.14 -m venv .venv`
+2. Activate it: `source .venv/bin/activate`
+3. Install dependencies: `python -m pip install -r requirements.txt`
+4. Run HostPulse: `python hostpulse.py`
 
-## 當前版本
+If the virtual environment and dependencies are already set up, you can skip the first three steps.
 
-v0.1 — 基礎系統資訊檢查工具。每次運行讀取一次系統狀態，不提供持續監控功能。
+Alternatively, run HostPulse directly from the project directory without activating the virtual environment:
+
+`.venv/bin/python hostpulse.py`
+
+## Packaging Status
+
+HostPulse uses `pyproject.toml` and setuptools for Python packaging.
+
+The command-line entry point `hostpulse` is configured to call `hostpulse:main`.
+
+Package building, local installation testing, and publication to PyPI have not yet been completed.
+
+## Version
+
+**v0.1.0**
+
+Initial system status checking functionality.
+
+## License
+
+HostPulse is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+Copyright (c) 2026 Yjunc
